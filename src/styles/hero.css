@@ -1,0 +1,418 @@
+/* =====================================================================
+   ATHENAEUM HERO (matches reference): single CSS file, prefix "ax-"
+   ===================================================================== */
+
+.ax-hero {
+  --ax-nav: 72px;
+  --ax-wall-1: #fbf6ee;
+  --ax-wall-2: #f6ecdd;
+  --ax-wall-3: #f1e0c6;
+  --ax-glow: rgba(255, 247, 226, 0.95);
+  --ax-text: #1c1712;
+  --ax-soft: #5a5247;
+  --ax-faint: #8c8579;
+  --ax-gold: #b4863a;
+  --ax-line: rgba(120, 95, 55, 0.22);
+  --ax-strip-bg: #fbf8f3;
+  --ax-table-a: rgba(240, 206, 158, 0);
+  --ax-table-b: rgba(236, 196, 142, 0.8);
+  --ax-table-c: #e2b883;
+  --ax-left: rgba(251, 246, 238, 0.88);
+  --ax-light: rgba(255, 255, 255, 0.55);
+  --ax-sheet-a: #fffaf0;
+  --ax-sheet-b: #eddfc4;
+  --ax-title-glow: rgba(255, 255, 255, 0.65);
+  --ax-scene-filter: none;
+  --ax-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ax-serif: var(--font-serif, 'Cormorant Garamond', 'Playfair Display', Georgia, serif);
+  --ax-sans: var(--font-sans, 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+  color: var(--ax-text);
+  background: var(--ax-strip-bg);
+  font-family: var(--ax-sans);
+}
+
+/* Dark theme: change selectors if your toggle differs */
+:is(.dark, [data-theme='dark'], [data-theme='ink'], .ink) .ax-hero {
+  --ax-wall-1: #1a1610;
+  --ax-wall-2: #15120d;
+  --ax-wall-3: #100e0a;
+  --ax-glow: rgba(120, 88, 40, 0.38);
+  --ax-text: #f3ede0;
+  --ax-soft: #b6ae9e;
+  --ax-faint: #7d7667;
+  --ax-gold: #d0a352;
+  --ax-line: rgba(255, 255, 255, 0.12);
+  --ax-strip-bg: #14110c;
+  --ax-table-a: rgba(120, 80, 36, 0);
+  --ax-table-b: rgba(110, 72, 32, 0.7);
+  --ax-table-c: #4a3118;
+  --ax-left: rgba(20, 17, 12, 0.85);
+  --ax-light: rgba(255, 226, 168, 0.1);
+  --ax-sheet-a: #e9dcc2;
+  --ax-sheet-b: #c9b891;
+  --ax-title-glow: rgba(0, 0, 0, 0.4);
+  --ax-scene-filter: brightness(0.82) saturate(0.95);
+}
+
+/* ---------------------------------------------------------------------
+   MAIN AREA (background + copy + scene)
+   --------------------------------------------------------------------- */
+.ax-main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 86svh;
+  padding: calc(var(--ax-nav) + 88px) 0 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 620px at 80% 28%, var(--ax-glow), transparent 65%),
+    linear-gradient(180deg, var(--ax-wall-1) 0%, var(--ax-wall-2) 62%, var(--ax-wall-3) 100%);
+}
+.ax-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Sun shafts from the window, upper right */
+.ax-window {
+  inset: -6%;
+  background: repeating-linear-gradient(
+    104deg,
+    transparent 0 120px,
+    var(--ax-light) 120px 210px,
+    transparent 210px 330px
+  );
+  -webkit-mask-image: radial-gradient(ellipse 70% 90% at 85% 25%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 70% 90% at 85% 25%, #000 0%, transparent 72%);
+  opacity: 0.6;
+  animation: ax-light 30s ease-in-out infinite alternate;
+}
+
+/* Wooden table with a soft sheen */
+.ax-table {
+  inset: auto 0 0 0;
+  height: 24%;
+  background:
+    linear-gradient(100deg, transparent 18%, rgba(255, 240, 215, 0.5) 52%, transparent 82%),
+    linear-gradient(180deg, var(--ax-table-a) 0%, var(--ax-table-b) 30%, var(--ax-table-c) 100%);
+}
+
+/* Keeps the left text readable, also when a photo is used */
+.ax-shade {
+  background: linear-gradient(90deg, var(--ax-left) 0%, color-mix(in srgb, var(--ax-left) 55%, transparent) 40%, transparent 66%);
+}
+
+/* Fine grain */
+.ax-grain {
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Blurred foliage and books at the corners (static, so cheap) */
+.ax-foliage {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(7px);
+  opacity: 0.88;
+}
+.ax-foliage.tl {
+  left: -4%;
+  top: -3%;
+  width: 26vw;
+  max-width: 430px;
+}
+.ax-foliage.bl {
+  left: -5%;
+  bottom: 5%;
+  width: 22vw;
+  max-width: 370px;
+}
+
+/* ---------------------------------------------------------------------
+   SCENE (SVG illustration or photo)
+   --------------------------------------------------------------------- */
+.ax-scene-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.ax-scene {
+  position: absolute;
+  right: -3vw;
+  bottom: -1%;
+  width: min(60vw, 980px);
+  filter: var(--ax-scene-filter);
+  transform: translate3d(calc(var(--px, 0) * -12px), calc(var(--py, 0) * -6px), 0);
+  will-change: transform;
+}
+.ax-scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.ax-plant {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ax-sway 7s ease-in-out infinite alternate;
+}
+.ax-photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+}
+
+/* Floating pages and the flying book */
+.ax-floaters {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.ax-fl {
+  position: absolute;
+  transform: translate3d(calc(var(--px, 0) * var(--k, 20) * 1px), calc(var(--py, 0) * var(--k, 20) * 0.6px), 0);
+}
+.ax-float {
+  width: var(--w);
+  animation: ax-float var(--dur) ease-in-out var(--delay) infinite alternate;
+  filter: drop-shadow(0 14px 16px rgba(120, 85, 40, 0.22));
+}
+.ax-float svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ax-sheet {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(135deg, var(--ax-sheet-a), var(--ax-sheet-b));
+  clip-path: polygon(6% 10%, 94% 0, 100% 88%, 0 100%);
+}
+.ax-sheet::after {
+  content: '';
+  position: absolute;
+  inset: 22% 14% 16% 14%;
+  background: repeating-linear-gradient(180deg, transparent 0 11px, rgba(120, 90, 50, 0.2) 11px 12px);
+}
+
+/* ---------------------------------------------------------------------
+   COPY (left side)
+   --------------------------------------------------------------------- */
+.ax-copy {
+  position: relative;
+  z-index: 4;
+  max-width: min(46rem, 92vw);
+  text-align: left;
+  will-change: transform, opacity;
+}
+.ax-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 24px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--ax-gold);
+}
+.ax-eyebrow::before,
+.ax-eyebrow::after {
+  content: '';
+  width: 56px;
+  height: 1px;
+  background: var(--ax-gold);
+  opacity: 0.8;
+}
+.ax-hero .ax-title {
+  margin: 0;
+  font-family: var(--ax-serif);
+  font-size: clamp(2.9rem, 5vw, 5rem);
+  font-weight: 450;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ax-text);
+  text-shadow: 0 2px 34px var(--ax-title-glow);
+}
+.ax-quiet {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ax-gold);
+}
+.ax-indent {
+  display: inline-block;
+  padding-left: 0.9em;
+}
+.ax-lead {
+  max-width: 31rem;
+  margin: 24px 0 0;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--ax-soft);
+}
+.ax-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+  padding: 15px 32px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(180deg, #c29443, #ad7f33);
+  box-shadow: 0 16px 30px -14px rgba(173, 127, 51, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.4s var(--ax-ease), box-shadow 0.4s var(--ax-ease), filter 0.3s;
+  text-decoration: none;
+}
+.ax-btn svg {
+  transition: transform 0.4s var(--ax-ease);
+}
+.ax-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.06);
+  box-shadow: 0 22px 36px -14px rgba(173, 127, 51, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.ax-btn:hover svg {
+  transform: translateX(5px);
+}
+.ax-btn:active {
+  transform: scale(0.97);
+}
+.ax-btn:focus-visible {
+  outline: 2px solid var(--ax-gold);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   TRUST STRIP (under the hero)
+   --------------------------------------------------------------------- */
+.ax-strip {
+  position: relative;
+  z-index: 5;
+  padding: 26px 0;
+  background: var(--ax-strip-bg);
+}
+.ax-strip-in {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 22px;
+}
+.ax-trust {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 clamp(24px, 3.4vw, 56px);
+}
+.ax-trust + .ax-trust::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 42px;
+  transform: translateY(-50%);
+  background: var(--ax-line);
+}
+.ax-trust svg {
+  flex: none;
+  color: var(--ax-gold);
+  transition: transform 0.5s var(--ax-ease);
+}
+.ax-trust:hover svg {
+  transform: translateY(-3px) rotate(-4deg);
+}
+.ax-trust b {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ax-text);
+}
+.ax-trust span {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--ax-faint);
+}
+
+/* ---------------------------------------------------------------------
+   KEYFRAMES
+   --------------------------------------------------------------------- */
+@keyframes ax-light {
+  from { transform: translateX(-2%); }
+  to { transform: translateX(3%); }
+}
+@keyframes ax-sway {
+  from { transform: rotate(-1.2deg); }
+  to { transform: rotate(1.4deg); }
+}
+@keyframes ax-float {
+  from { transform: translate3d(0, 0, 0) rotate(var(--r0)); }
+  to { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--r1)); }
+}
+
+/* ---------------------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .ax-scene { width: 78vw; right: -8vw; }
+  .ax-copy { max-width: 62%; }
+}
+@media (max-width: 720px) {
+  .ax-main {
+    align-items: flex-start;
+    min-height: 760px;
+    padding-top: calc(var(--ax-nav) + 24px);
+    padding-bottom: 300px;
+  }
+  .ax-copy { max-width: 100%; }
+  .ax-scene { width: 135vw; right: -34vw; bottom: 0; }
+  .ax-eyebrow { letter-spacing: 0.3em; font-size: 11px; }
+  .ax-eyebrow::before,
+  .ax-eyebrow::after { width: 28px; }
+  .ax-indent { padding-left: 0.5em; }
+  .ax-fl.hide-sm { display: none; }
+  .ax-strip-in { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 12px; padding: 0 12px; }
+  .ax-trust { padding: 0 8px; }
+  .ax-trust + .ax-trust::before { display: none; }
+}
+
+.ax-main > .container-shell {
+  width: min(1060px, calc(100% - 48px));
+}
+
+/* ---------------------------------------------------------------------
+   REDUCED MOTION
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ax-hero *,
+  .ax-hero *::before,
+  .ax-hero *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
