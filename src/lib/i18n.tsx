@@ -321,13 +321,13 @@ const LanguageContext = createContext<{
   setLanguage: (language: Language) => void;
   t: TranslationKey;
 }>({
-  language: 'en',
+  language: 'bn',
   setLanguage: () => undefined,
-  t: translations.en,
+  t: translations.bn,
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('bn');
 
   const value = useMemo(
     () => ({ language, setLanguage, t: translations[language] }),
@@ -341,4 +341,4 @@ export function useLanguage() {
   return useContext(LanguageContext);
 }
 
-export const defaultLanguage: Language = 'en';
+export const defaultLanguage: Language = 'bn';
