@@ -20,15 +20,7 @@ import {
 import { useTheme } from '@/hooks/useTheme';
 import { useScrolled } from '@/hooks/useScrolled';
 import { classNames } from '@/lib/format';
-
-const navLinks = [
-  { label: 'Books', href: '/books', hasMega: true },
-  { label: 'Categories', href: '/categories' },
-  { label: 'Authors', href: '/authors' },
-  { label: 'New Releases', href: '/new-releases' },
-  { label: 'Bestsellers', href: '/bestsellers' },
-  { label: 'Offers', href: '/offers' },
-];
+import { languages, useLanguage } from '@/lib/i18n';
 
 const megaCategories = [
   { label: 'Fiction', icon: BookOpen },
@@ -51,12 +43,22 @@ const megaAuthors = [
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const { t, language, setLanguage } = useLanguage();
   const scrolled = useScrolled(40);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
+
+  const navLinks = [
+    { label: t.nav.books, href: '/books', hasMega: true },
+    { label: t.nav.categories, href: '/categories' },
+    { label: t.nav.authors, href: '/authors' },
+    { label: t.nav.newReleases, href: '/new-releases' },
+    { label: t.nav.bestsellers, href: '/bestsellers' },
+    { label: t.nav.offers, href: '/offers' },
+  ];
 
   const handleSearchKey = (e: KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -103,7 +105,7 @@ export function Navbar() {
             <Link to="/" className="flex shrink-0 items-center gap-2" onClick={() => setMobileOpen(false)}>
               <BookOpen className="h-7 w-7 text-ink" strokeWidth={1.8} aria-hidden="true" />
               <span className="font-serif text-2xl font-semibold tracking-tight text-ink">
-                Athenaeum
+                {t.siteName}
               </span>
             </Link>
 
@@ -136,7 +138,7 @@ export function Navbar() {
                 className="hidden h-10 w-44 items-center gap-2 rounded-full border border-transparent bg-bg-2/70 px-3.5 text-sm text-ink-faint transition-colors hover:border-accent/40 hover:text-ink-soft md:flex lg:w-48"
               >
                 <Search className="w-4 h-4" />
-                <span>Search books...</span>
+                <span>{t.search}</span>
               </button>
               <button
                 onClick={() => setSearchOpen(true)}
@@ -145,6 +147,22 @@ export function Navbar() {
               >
                 <Search className="w-5 h-5" />
               </button>
+
+              <label className="hidden items-center rounded-full border border-line bg-bg-2/70 px-2 py-1 text-xs text-ink-soft md:flex">
+                <span className="mr-2">{t.language}</span>
+                <select
+                  value={language}
+                  onChange={(event) => setLanguage(event.target.value as typeof language)}
+                  className="bg-transparent font-medium text-ink focus:outline-none"
+                  aria-label="Select language"
+                >
+                  {languages.map((option) => (
+                    <option key={option.code} value={option.code}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
 
               {/* Theme toggle */}
               <button
@@ -217,7 +235,7 @@ export function Navbar() {
                   <div className="grid grid-cols-12 gap-8">
                     {/* Categories */}
                     <div className="col-span-5">
-                      <p className="label-eyebrow mb-4 text-ink-faint">Categories</p>
+                      <p className="label-eyebrow mb-4 text-ink-faint">{t.nav.categories}</p>
                       <div className="grid grid-cols-2 gap-2">
                         {megaCategories.map((cat) => (
                           <Link
@@ -234,7 +252,7 @@ export function Navbar() {
 
                     {/* Authors */}
                     <div className="col-span-4">
-                      <p className="label-eyebrow mb-4 text-ink-faint">Featured Authors</p>
+                      <p className="label-eyebrow mb-4 text-ink-faint">{t.nav.authors}</p>
                       <div className="flex flex-col gap-2">
                         {megaAuthors.map((author) => (
                           <Link
@@ -359,7 +377,7 @@ function SearchOverlay({ open, onClose, value, onChange, ref }: SearchOverlayPro
                 ref={ref}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder="Search books, authors, ISBN..."
+                placeholder={t.search}
                 className="flex-1 bg-transparent text-body text-ink placeholder:text-ink-faint focus:outline-none"
               />
               <button
@@ -436,7 +454,7 @@ function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 onClick={onClose}
                 className="rounded-12 px-4 py-3 text-base font-medium text-ink-soft transition-colors hover:bg-bg-2 hover:text-accent"
               >
-                My Account
+                {t.routes.account}
               </Link>
             </nav>
           </motion.div>

@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { ArrowRight, BookOpen, Library, Sparkles, TrendingUp } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { useLanguage } from '@/lib/i18n';
 
 interface PagePlaceholderProps {
   title: string;
@@ -10,35 +11,35 @@ interface PagePlaceholderProps {
   children?: ReactNode;
 }
 
-const discoveryLinks = [
-  {
-    label: 'Browse the shelves',
-    description: 'Find your next read in the catalog.',
-    href: '/books',
-    image: '/images/book-river.jpg',
-    icon: Library,
-  },
-  {
-    label: 'Reader favorites',
-    description: 'See what readers are loving.',
-    href: '/bestsellers',
-    image: '/images/book-silent-hours.jpg',
-    icon: TrendingUp,
-  },
-  {
-    label: 'Freshly published',
-    description: 'Take a look at the latest arrivals.',
-    href: '/new-releases',
-    image: '/images/book-glassmaker.jpg',
-    icon: Sparkles,
-  },
-];
-
 export function PagePlaceholder({ title, description, breadcrumbs, children }: PagePlaceholderProps) {
   const { pathname } = useLocation();
+  const { t } = useLanguage();
+  const discoveryLinks = [
+    {
+      label: 'Browse the shelves',
+      description: 'Find your next read in the catalog.',
+      href: '/books',
+      image: '/images/book-river.jpg',
+      icon: Library,
+    },
+    {
+      label: 'Reader favorites',
+      description: 'See what readers are loving.',
+      href: '/bestsellers',
+      image: '/images/book-silent-hours.jpg',
+      icon: TrendingUp,
+    },
+    {
+      label: 'Freshly published',
+      description: 'Take a look at the latest arrivals.',
+      href: '/new-releases',
+      image: '/images/book-glassmaker.jpg',
+      icon: Sparkles,
+    },
+  ];
   const primaryLink = pathname === '/books'
-    ? { href: '/bestsellers', label: 'Explore reader favorites' }
-    : { href: '/books', label: 'Explore the catalog' };
+    ? { href: '/bestsellers', label: t.page.primaryBooks }
+    : { href: '/books', label: t.page.primaryCatalog };
   const visibleDiscoveryLinks = discoveryLinks.filter(({ href }) => href !== pathname);
 
   return (
@@ -51,7 +52,7 @@ export function PagePlaceholder({ title, description, breadcrumbs, children }: P
         <>
           <section className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div className="max-w-2xl">
-              <p className="label-eyebrow mb-5 text-accent">A world of stories</p>
+              <p className="label-eyebrow mb-5 text-accent">{t.page.world}</p>
               <h1 className="font-serif text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[0.92] tracking-[-0.035em] text-ink">
                 {title}
               </h1>
@@ -61,7 +62,7 @@ export function PagePlaceholder({ title, description, breadcrumbs, children }: P
                 </p>
               )}
               <p className="mt-5 text-sm text-ink-faint">
-                We’re putting the finishing touches on this shelf. In the meantime, there are plenty of stories to explore.
+                {t.page.finishing}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
                 <Link
@@ -75,7 +76,7 @@ export function PagePlaceholder({ title, description, breadcrumbs, children }: P
                   to="/"
                   className="group inline-flex items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-accent"
                 >
-                  Back to the bookstore
+                  {t.page.backToStore}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -128,10 +129,10 @@ export function PagePlaceholder({ title, description, breadcrumbs, children }: P
           <section className="mt-20 border-t border-line pt-8 sm:mt-28 sm:pt-10">
             <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="label-eyebrow mb-2 text-accent">Keep exploring</p>
-                <h2 className="font-serif text-3xl font-medium text-ink sm:text-4xl">A good place to start</h2>
+                <p className="label-eyebrow mb-2 text-accent">{t.page.keepExploring}</p>
+                <h2 className="font-serif text-3xl font-medium text-ink sm:text-4xl">{t.page.goodPlace}</h2>
               </div>
-              <span className="hidden text-sm text-ink-faint sm:block">There’s always another story</span>
+              <span className="hidden text-sm text-ink-faint sm:block">{t.page.alwaysAnother}</span>
             </div>
 
             <div className="grid gap-3 md:grid-cols-3">

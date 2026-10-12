@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Reveal } from '@/components/motion/Reveal';
+import { useLanguage } from '@/lib/i18n';
 
 const authors = [
   { name: 'Aravind Mehta', slug: 'aravind-mehta', image: '/images/author-aravind.jpg', books: 12, quote: 'Every map is a story someone chose to tell.' },
@@ -9,13 +10,15 @@ const authors = [
 ];
 
 export function AuthorsSpotlight() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-128">
       <div className="container-shell">
         <Reveal>
           <div className="mb-12 flex flex-col items-center text-center">
-            <p className="label-eyebrow mb-4 text-accent">The Voices</p>
-            <h2 className="text-h2 font-serif text-ink">Authors Spotlight</h2>
+            <p className="label-eyebrow mb-4 text-accent">{t.page.voices}</p>
+            <h2 className="text-h2 font-serif text-ink">{t.page.authorsSpotlight}</h2>
           </div>
         </Reveal>
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -39,7 +42,7 @@ export function AuthorsSpotlight() {
                   <p className="font-serif text-lg font-medium text-ink transition-colors group-hover:text-accent">
                     {author.name}
                   </p>
-                  <p className="text-xs text-ink-faint">{author.books} books</p>
+                  <p className="text-xs text-ink-faint">{author.books} {t.page.booksCount}</p>
                 </div>
                 <div className="max-w-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-w-xs group-hover:opacity-100">
                   <p className="text-sm italic text-ink-soft text-center">

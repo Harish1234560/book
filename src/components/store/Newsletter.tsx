@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Reveal } from '@/components/motion/Reveal';
+import { useLanguage } from '@/lib/i18n';
 
 export function Newsletter() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
 
@@ -20,12 +22,12 @@ export function Newsletter() {
       <div className="container-shell">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <p className="label-eyebrow mb-4 text-accent">Stay in Touch</p>
+            <p className="label-eyebrow mb-4 text-accent">{t.page.stayInTouch}</p>
             <h2 className="text-h2 font-serif text-ink">
-              Letters from <span className="italic font-light">the bookshop</span>
+              {t.page.lettersFrom} <span className="italic font-light">{t.page.bookshop}</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-body text-ink-soft">
-              New arrivals, reading lists, and occasional notes. One email a month, nothing more.
+              {t.page.newsletterLead}
             </p>
           </div>
         </Reveal>
@@ -74,7 +76,7 @@ export function Newsletter() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Thank you. Check your inbox to confirm.
+            {t.page.thankYou}
           </motion.p>
         )}
       </div>

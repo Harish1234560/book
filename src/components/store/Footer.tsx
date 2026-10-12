@@ -1,47 +1,48 @@
 import { Link } from 'react-router-dom';
 import { BookOpen, Mail, Phone, MapPin, Instagram, Twitter, Facebook } from 'lucide-react';
-
-const footerColumns = [
-  {
-    title: 'Shop',
-    links: [
-      { label: 'All Books', href: '/books' },
-      { label: 'New Releases', href: '/new-releases' },
-      { label: 'Bestsellers', href: '/bestsellers' },
-      { label: 'Offers', href: '/offers' },
-      { label: 'Collections', href: '/collections' },
-    ],
-  },
-  {
-    title: 'Help',
-    links: [
-      { label: 'Contact Us', href: '/contact' },
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Shipping & Returns', href: '/shipping-returns' },
-      { label: 'Track Order', href: '/order-tracking' },
-      { label: 'Gift Cards', href: '/gift-cards' },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'About Us', href: '/about' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Press', href: '/press' },
-    ],
-  },
-  {
-    title: 'Legal',
-    links: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Refund Policy', href: '/refund-policy' },
-    ],
-  },
-];
+import { useLanguage } from '@/lib/i18n';
 
 export function Footer() {
+  const { t, language } = useLanguage();
+  const footerColumns = [
+    {
+      title: t.page.shop,
+      links: [
+        { label: t.page.allBooks, href: '/books' },
+        { label: t.nav.newReleases, href: '/new-releases' },
+        { label: t.nav.bestsellers, href: '/bestsellers' },
+        { label: t.nav.offers, href: '/offers' },
+        { label: t.page.collectionsHeading, href: '/collections' },
+      ],
+    },
+    {
+      title: t.page.help,
+      links: [
+        { label: t.page.contactUs, href: '/contact' },
+        { label: t.page.faq, href: '/faq' },
+        { label: t.page.shippingReturns, href: '/shipping-returns' },
+        { label: t.page.trackOrder, href: '/order-tracking' },
+        { label: t.page.giftCards, href: '/gift-cards' },
+      ],
+    },
+    {
+      title: t.page.company,
+      links: [
+        { label: t.page.aboutUs, href: '/about' },
+        { label: t.page.blog, href: '/blog' },
+        { label: t.page.careers, href: '/careers' },
+        { label: t.page.press, href: '/press' },
+      ],
+    },
+    {
+      title: t.page.legal,
+      links: [
+        { label: t.page.privacy, href: '/privacy' },
+        { label: t.page.terms, href: '/terms' },
+        { label: t.page.refundPolicy, href: '/refund-policy' },
+      ],
+    },
+  ];
   return (
     <footer className="relative mt-32 border-t border-line bg-bg-1">
       <div className="container-shell py-16">
@@ -53,7 +54,7 @@ export function Footer() {
               <span className="font-serif text-2xl font-semibold text-ink">Athenaeum</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-              A quiet, independent bookshop bringing you stories worth keeping. Curated with care, delivered with love.
+              {t.page.footerIntro}
             </p>
             <div className="mt-5 flex flex-col gap-2 text-sm text-ink-soft">
               <a href="mailto:hello@athenaeum.in" className="flex items-center gap-2 hover:text-accent transition-colors">
@@ -103,7 +104,7 @@ export function Footer() {
         {/* Payment + bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-line pt-6 md:flex-row">
           <p className="text-xs text-ink-faint">
-            © {new Date().getFullYear()} Athenaeum Books. All rights reserved.
+            {t.page.aboutAthenaeum.replace('{year}', String(new Date().getFullYear()))}
           </p>
           <div className="flex items-center gap-3">
             {['Razorpay', 'Stripe', 'VISA', 'Mastercard', 'UPI'].map((p) => (

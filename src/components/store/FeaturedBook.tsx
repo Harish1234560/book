@@ -7,10 +7,12 @@ import { Button } from '@/components/ui/Button';
 import { Rating } from '@/components/ui/Rating';
 import { Price } from '@/components/ui/Price';
 import { useMagnetic } from '@/hooks/useMagnetic';
+import { useLanguage } from '@/lib/i18n';
 
 export function FeaturedBook() {
   const sectionRef = useRef<HTMLElement>(null);
   const magneticRef = useMagnetic<HTMLButtonElement>(0.25);
+  const { t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -50,7 +52,7 @@ export function FeaturedBook() {
                     <div className="flex h-full flex-col justify-between p-8">
                       <div>
                         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
-                          Featured
+                          {t.page.featured}
                         </p>
                         <div className="mt-2 h-px w-12 bg-accent/60" />
                       </div>
@@ -72,7 +74,7 @@ export function FeaturedBook() {
           {/* Right: content */}
           <div>
             <Reveal>
-              <p className="label-eyebrow mb-4 text-accent">Book of the Month</p>
+              <p className="label-eyebrow mb-4 text-accent">{t.page.bookOfMonth}</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h2 className="text-h2 font-serif text-ink">
@@ -81,7 +83,7 @@ export function FeaturedBook() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-3 text-ink-soft">
-                by <Link to="/authors/aravind-mehta" className="text-accent hover:underline">Aravind Mehta</Link>
+                {t.page.authorBy} <Link to="/authors/aravind-mehta" className="text-accent hover:underline">Aravind Mehta</Link>
               </p>
             </Reveal>
             <Reveal delay={0.3}>
@@ -97,17 +99,17 @@ export function FeaturedBook() {
             <Reveal delay={0.5}>
               <div className="mt-8">
                 <Price amount={599} originalAmount={799} size="lg" />
-                <p className="mt-1 text-xs text-ink-faint">Inclusive of all taxes</p>
+                <p className="mt-1 text-xs text-ink-faint">{t.page.inclusive}</p>
               </div>
             </Reveal>
             <Reveal delay={0.6}>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button ref={magneticRef} size="md" variant="primary" className="magnetic">
-                  Add to Cart
+                  {t.page.addToCart}
                   <ArrowRight className="w-4 h-4 btn-arrow" />
                 </Button>
                 <Link to="/books/the-cartographer-of-lost-places">
-                  <Button size="md" variant="outline">View Details</Button>
+                  <Button size="md" variant="outline">{t.page.viewDetails}</Button>
                 </Link>
               </div>
             </Reveal>

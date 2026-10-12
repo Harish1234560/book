@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BookCard } from '@/components/store/BookCard';
+import { useLanguage } from '@/lib/i18n';
 
 const sampleBooks = [
   { id: '1', slug: 'river-of-stars', title: 'River of Stars', author: 'Priya Nair', coverColor: '#8B4513', coverImage: '/images/book-river.jpg', price: 449, originalPrice: 599, rating: 4.3, ratingCount: 45, isNew: true, stock: 12 },
@@ -15,6 +16,7 @@ const sampleBooks = [
 ];
 
 export function Bestsellers() {
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: 'left' | 'right') => {
@@ -30,8 +32,8 @@ export function Bestsellers() {
         <Reveal>
           <div className="mb-10 flex items-end justify-between">
             <div>
-              <p className="label-eyebrow mb-3 text-accent">What People Are Reading</p>
-              <h2 className="text-h2 font-serif text-ink">Bestsellers</h2>
+              <p className="label-eyebrow mb-3 text-accent">{t.page.whatPeopleReading}</p>
+              <h2 className="text-h2 font-serif text-ink">{t.page.bestsellersHeading}</h2>
             </div>
             <div className="hidden gap-2 sm:flex">
               <button

@@ -2,13 +2,12 @@ import { Link } from 'react-router-dom';
 import { Reveal } from '@/components/motion/Reveal';
 import { Marquee } from '@/components/motion/Marquee';
 import { Button } from '@/components/ui/Button';
-
-const genreWords = [
-  'Fiction', 'Poetry', 'Memoir', 'Mystery', 'Self-help', 'Business',
-  'History', 'Children', 'Comics', 'Academic', 'Regional', 'Philosophy',
-];
+import { useLanguage } from '@/lib/i18n';
 
 export function OffersBanner() {
+  const { language, t } = useLanguage();
+  const genreWords = language === 'bn' ? t.page.genres : t.page.genres;
+
   return (
     <section className="relative overflow-hidden bg-ink py-20">
       <div
@@ -19,22 +18,22 @@ export function OffersBanner() {
       />
       <div className="container-shell relative z-10 text-center">
         <Reveal>
-          <p className="label-eyebrow mb-4 text-accent">Limited Time</p>
+          <p className="label-eyebrow mb-4 text-accent">{t.page.limitedTime}</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-h2 font-serif text-bg-0">
-            Up to <span className="italic text-accent">40% off</span> this week
+            {t.page.offThisWeek} <span className="italic text-accent">40% {t.page.offThisWeek2}</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="mx-auto mt-4 max-w-md text-sm text-bg-0/60">
-            Use code <span className="font-mono font-semibold text-accent">READ40</span> at checkout. Curated deals across fiction and non-fiction.
+            {t.page.useCode} <span className="font-mono font-semibold text-accent">READ40</span> {t.page.checkoutNote}
           </p>
         </Reveal>
         <Reveal delay={0.3}>
           <div className="mt-8">
             <Link to="/offers">
-              <Button size="md" variant="primary">Browse Offers</Button>
+              <Button size="md" variant="primary">{t.page.browseOffers}</Button>
             </Link>
           </div>
         </Reveal>

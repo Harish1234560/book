@@ -5,6 +5,7 @@ import { ArrowRight, BookOpen, RotateCcw, ShieldCheck, Truck } from 'lucide-reac
 import { SplitLines } from '@/components/motion/SplitLines';
 import { Reveal } from '@/components/motion/Reveal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useLanguage } from '@/lib/i18n';
 import '@/styles/hero.css';
 
 /* ---------------------------------------------------------------------
@@ -16,10 +17,10 @@ import '@/styles/hero.css';
 const HERO_IMAGE = '';
 
 const TRUST = [
-  { icon: BookOpen, title: 'Curated Collection', text: 'Handpicked for you' },
-  { icon: ShieldCheck, title: 'Secure Shopping', text: 'Safe & encrypted' },
-  { icon: Truck, title: 'Fast Delivery', text: 'Across India' },
-  { icon: RotateCcw, title: 'Easy Returns', text: 'Hassle free' },
+  { icon: BookOpen, titleKey: 'curated', textKey: 'curatedText' },
+  { icon: ShieldCheck, titleKey: 'secure', textKey: 'secureText' },
+  { icon: Truck, titleKey: 'delivery', textKey: 'deliveryText' },
+  { icon: RotateCcw, titleKey: 'returns', textKey: 'returnsText' },
 ];
 
 // Book stack, listed from the BOTTOM book to the TOP book.
@@ -248,6 +249,12 @@ function HeroScene() {
 export function HeroSection() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
+  const trustItems = TRUST.map((item) => ({
+    ...item,
+    title: t.trust[item.titleKey as keyof typeof t.trust],
+    text: t.trust[item.textKey as keyof typeof t.trust],
+  }));
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
   const sceneY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
@@ -354,28 +361,28 @@ export function HeroSection() {
         <motion.div className="container-shell" style={{ position: 'relative', zIndex: 4, y: copyY, opacity: copyOpacity }}>
           <div className="ax-copy">
             <Reveal delay={0.2}>
-              <p className="ax-eyebrow">Stories Worth Keeping</p>
+              <p className="ax-eyebrow">{t.hero.eyebrow}</p>
             </Reveal>
 
             <SplitLines
               className="ax-title"
               lines={[
-                <>A bookshop for</>,
-                <><span className="ax-quiet">quiet</span> readers,</>,
-                <><span className="ax-indent">everywhere.</span></>,
+                <>{t.hero.title[0]}</>,
+                <><span className="ax-quiet">{t.hero.title[1]}</span></>,
+                <><span className="ax-indent">{t.hero.title[2]}</span></>,
               ]}
               delay={0.4}
             />
 
             <Reveal delay={0.9}>
               <p className="ax-lead">
-                Handpicked paperbacks, hardcovers, and eBooks from independent voices and timeless classics. Delivered across India with care.
+                {t.hero.lead}
               </p>
             </Reveal>
 
             <Reveal delay={1.1}>
               <Link to="/books" className="ax-btn">
-                Explore Books
+                {t.hero.cta}
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Reveal>
@@ -387,7 +394,7 @@ export function HeroSection() {
       <div className="ax-strip">
         <div className="container-shell">
           <div className="ax-strip-in">
-            {TRUST.map(({ icon: Icon, title, text }) => (
+            {trustItems.map(({ icon: Icon, title, text }) => (
               <div className="ax-trust" key={title}>
                 <Icon size={36} strokeWidth={1.3} />
                 <div>

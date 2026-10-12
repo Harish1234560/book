@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Truck, ShieldCheck, RotateCcw, BadgeCheck } from 'lucide-react';
-
-const messages = [
-  { icon: Truck, text: 'Free shipping on orders over \u20B9499' },
-  { icon: ShieldCheck, text: 'Secure payment via Razorpay and Stripe' },
-  { icon: RotateCcw, text: '7-day returns on damaged books' },
-  { icon: BadgeCheck, text: 'Authentic publisher-sourced books' },
-];
+import { useLanguage } from '@/lib/i18n';
 
 export function AnnouncementBar() {
+  const { t } = useLanguage();
+  const messages = [
+    { icon: Truck, text: t.announcement[0] },
+    { icon: ShieldCheck, text: t.announcement[1] },
+    { icon: RotateCcw, text: t.announcement[2] },
+    { icon: BadgeCheck, text: t.announcement[3] },
+  ];
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 

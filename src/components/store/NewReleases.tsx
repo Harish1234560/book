@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BookCard } from '@/components/store/BookCard';
+import { useLanguage } from '@/lib/i18n';
 
 const newBooks = [
   { id: '10', slug: 'the-glassmaker', title: 'The Glassmaker', author: 'Rohan Kapoor', coverColor: '#4A6D7C', coverImage: '/images/book-glassmaker.jpg', price: 499, rating: 4.6, ratingCount: 52, isNew: true, stock: 12 },
@@ -11,20 +12,22 @@ const newBooks = [
 ];
 
 export function NewReleases() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-128 bg-bg-1">
       <div className="container-shell">
         <Reveal>
           <div className="mb-10 flex items-end justify-between">
             <div>
-              <p className="label-eyebrow mb-3 text-accent">Just Arrived</p>
-              <h2 className="text-h2 font-serif text-ink">New Releases</h2>
+              <p className="label-eyebrow mb-3 text-accent">{t.page.justArrived}</p>
+              <h2 className="text-h2 font-serif text-ink">{t.page.newReleasesHeading}</h2>
             </div>
             <Link
               to="/new-releases"
               className="group flex items-center gap-1.5 text-sm font-medium text-ink-soft transition-colors hover:text-accent"
             >
-              View all
+              {t.page.viewAll}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

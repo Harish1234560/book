@@ -1,6 +1,7 @@
 import { Reveal } from '@/components/motion/Reveal';
 import { Marquee } from '@/components/motion/Marquee';
 import { Rating } from '@/components/ui/Rating';
+import { useLanguage } from '@/lib/i18n';
 
 const reviews = [
   { name: 'Ananya R.', image: '/images/reader-ananya.jpg', text: 'Beautifully packaged and delivered in three days. The book selection is unlike any other store.', rating: 5, book: 'The Silent Hours' },
@@ -10,7 +11,7 @@ const reviews = [
   { name: 'Sneha P.', image: '/images/reader-sneha.jpg', text: 'The reading lists helped me discover three new authors I now love.', rating: 5, book: 'Found Objects' },
 ];
 
-function ReviewCard({ review }: { review: typeof reviews[0] }) {
+function ReviewCard({ review, onLabel }: { review: typeof reviews[0]; onLabel: string }) {
   return (
     <div className="w-[320px] shrink-0 rounded-20 border border-line bg-bg-1 p-6">
       <Rating value={review.rating} size="sm" showCount={false} />
@@ -18,7 +19,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
       <div className="mt-5 flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-ink">{review.name}</p>
-          <p className="text-xs text-ink-faint">on {review.book}</p>
+          <p className="text-xs text-ink-faint">{onLabel} {review.book}</p>
         </div>
         <img
           src={review.image}
@@ -33,19 +34,22 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
 }
 
 export function Reviews() {
+  const { language, t } = useLanguage();
+  const onLabel = t.page.on;
+
   return (
     <section className="py-128 overflow-hidden">
       <div className="container-shell">
         <Reveal>
           <div className="mb-12 flex flex-col items-center text-center">
-            <p className="label-eyebrow mb-4 text-accent">Kind Words</p>
-            <h2 className="text-h2 font-serif text-ink">From Our Readers</h2>
+            <p className="label-eyebrow mb-4 text-accent">{t.page.kindWords}</p>
+            <h2 className="text-h2 font-serif text-ink">{t.page.fromOurReaders}</h2>
           </div>
         </Reveal>
       </div>
       <Marquee>
         {reviews.map((r) => (
-          <ReviewCard key={r.name} review={r} />
+          <ReviewCard key={r.name} review={r} onLabel={onLabel} />
         ))}
       </Marquee>
     </section>
