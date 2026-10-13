@@ -46,12 +46,12 @@ export function PagesTurn() {
 
   if (reduced) {
     return (
-      <section className="bg-ink py-128">
+      <section className="bg-ink py-20">
         <div className="container-shell text-center">
-          <p className="label-eyebrow mb-4 text-accent">Pages That Turn</p>
-          <h2 className="text-h2 font-serif text-bg-0 mb-12">A reader's companion</h2>
+          <p className="label-eyebrow mb-3 text-accent">Pages That Turn</p>
+          <h2 className="text-h2 font-serif text-bg-0 mb-8">A reader's companion</h2>
           <div className="mx-auto max-w-2xl">
-            <div className="flex min-h-[280px] items-center justify-center rounded-12 border border-bg-0/10 bg-bg-1/5 p-12">
+            <div className="flex min-h-[260px] items-center justify-center rounded-12 border border-bg-0/10 bg-bg-1/5 p-8 md:p-10">
               <div className="text-center">
                 <p className="font-serif text-2xl italic leading-relaxed text-bg-0/90">
                   "{pages[0].text}"
@@ -66,7 +66,7 @@ export function PagesTurn() {
   }
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-ink py-128" style={{ minHeight: '120vh' }}>
+    <section ref={sectionRef} className="relative overflow-hidden bg-ink py-14 md:py-20" style={{ minHeight: '80vh' }}>
       <DustParticles />
       <div
         className="absolute inset-0 opacity-5"
@@ -75,19 +75,18 @@ export function PagesTurn() {
         }}
       />
 
-      {/* Sticky content */}
-      <div className="sticky top-0 flex min-h-screen items-center justify-center">
+      <div className="flex min-h-[65vh] items-center justify-center py-4 md:py-8">
         <div className="container-shell relative z-10 text-center">
           <Reveal>
-            <p className="label-eyebrow mb-4 text-accent">Pages That Turn</p>
+            <p className="label-eyebrow mb-3 text-accent">Pages That Turn</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="text-h2 font-serif text-bg-0 mb-16">
+            <h2 className="text-h2 font-serif text-bg-0 mb-6 md:mb-8">
               A <span className="italic font-light text-accent">reader's</span> companion
             </h2>
           </Reveal>
 
-          <div className="relative mx-auto max-w-2xl min-h-[300px] flex items-center justify-center">
+          <div className="relative mx-auto max-w-2xl min-h-[220px] flex items-center justify-center">
             {pages.map((page, i) => {
               const opacity = pageOpacity(i);
               const scale = useTransform(activePage, [i - 1, i, i + 1], [0.9, 1, 0.9]);
@@ -98,7 +97,7 @@ export function PagesTurn() {
                   className="absolute inset-0 flex items-center justify-center"
                   style={{ opacity, scale, rotateY, transformStyle: 'preserve-3d' }}
                 >
-                  <div className="w-full rounded-20 border border-bg-0/10 bg-bg-1/5 backdrop-blur-sm p-12">
+                  <div className="w-full rounded-20 border border-bg-0/10 bg-bg-1/5 backdrop-blur-sm p-6 md:p-8">
                     <p className="font-serif text-2xl italic leading-relaxed text-bg-0/90 md:text-3xl">
                       "{page.text}"
                     </p>

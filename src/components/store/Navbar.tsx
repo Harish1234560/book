@@ -306,11 +306,19 @@ export function Navbar() {
         onClose={() => setSearchOpen(false)}
         value={searchValue}
         onChange={setSearchValue}
+        placeholder={t.search}
+        suggestionsLabel={t.page.suggestions}
         ref={searchRef}
       />
 
       {/* Mobile drawer */}
-      <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileDrawer
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        links={navLinks}
+        menuLabel={t.page.menu}
+        accountLabel={t.routes.account}
+      />
     </>
   );
 }
@@ -349,10 +357,12 @@ interface SearchOverlayProps {
   onClose: () => void;
   value: string;
   onChange: (v: string) => void;
+  placeholder: string;
+  suggestionsLabel: string;
   ref: React.RefObject<HTMLInputElement>;
 }
 
-function SearchOverlay({ open, onClose, value, onChange, ref }: SearchOverlayProps) {
+function SearchOverlay({ open, onClose, value, onChange, placeholder, suggestionsLabel, ref }: SearchOverlayProps) {
   return (
     <AnimatePresence>
       {open && (
@@ -377,7 +387,7 @@ function SearchOverlay({ open, onClose, value, onChange, ref }: SearchOverlayPro
                 ref={ref}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder={t.search}
+                placeholder={placeholder}
                 className="flex-1 bg-transparent text-body text-ink placeholder:text-ink-faint focus:outline-none"
               />
               <button
@@ -388,7 +398,7 @@ function SearchOverlay({ open, onClose, value, onChange, ref }: SearchOverlayPro
               </button>
             </div>
             <div className="px-5 py-4">
-              <p className="label-eyebrow mb-3 text-ink-faint">Suggestions</p>
+              <p className="label-eyebrow mb-3 text-ink-faint">{suggestionsLabel}</p>
               <div className="flex flex-wrap gap-2">
                 {['Mystery', 'Self-help', 'Aravind Mehta', 'Fiction', 'Business'].map((s) => (
                   <button
@@ -411,9 +421,12 @@ function SearchOverlay({ open, onClose, value, onChange, ref }: SearchOverlayPro
 interface MobileDrawerProps {
   open: boolean;
   onClose: () => void;
+  links: Array<{ label: string; href: string; hasMega?: boolean }>;
+  menuLabel: string;
+  accountLabel: string;
 }
 
-function MobileDrawer({ open, onClose }: MobileDrawerProps) {
+function MobileDrawer({ open, onClose, links, menuLabel, accountLabel }: MobileDrawerProps) {
   return (
     <AnimatePresence>
       {open && (
@@ -432,13 +445,13 @@ function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-center justify-between border-b border-line px-5 py-4">
-              <span className="font-serif text-xl font-semibold text-ink">Menu</span>
+              <span className="font-serif text-xl font-semibold text-ink">{menuLabel}</span>
               <button onClick={onClose} className="rounded-full p-2 text-ink-soft hover:bg-bg-2">
                 <X className="w-5 h-5" />
               </button>
             </div>
             <nav className="flex flex-col gap-1 px-3 py-4">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
@@ -454,7 +467,7 @@ function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 onClick={onClose}
                 className="rounded-12 px-4 py-3 text-base font-medium text-ink-soft transition-colors hover:bg-bg-2 hover:text-accent"
               >
-                {t.routes.account}
+                {accountLabel}
               </Link>
             </nav>
           </motion.div>

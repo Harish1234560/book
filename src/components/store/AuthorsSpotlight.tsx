@@ -13,15 +13,15 @@ export function AuthorsSpotlight() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-128">
+    <section className="py-20">
       <div className="container-shell">
         <Reveal>
-          <div className="mb-12 flex flex-col items-center text-center">
-            <p className="label-eyebrow mb-4 text-accent">{t.page.voices}</p>
+          <div className="mb-8 flex flex-col items-center text-center md:mb-10">
+            <p className="label-eyebrow mb-3 text-accent">{t.page.voices}</p>
             <h2 className="text-h2 font-serif text-ink">{t.page.authorsSpotlight}</h2>
           </div>
         </Reveal>
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8">
           {authors.map((author, i) => (
             <Reveal key={author.slug} delay={i * 0.1}>
               <Link

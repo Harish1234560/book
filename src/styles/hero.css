@@ -385,20 +385,42 @@
 @media (max-width: 720px) {
   .ax-main {
     align-items: flex-start;
-    min-height: 760px;
+    min-height: 700px;
     padding-top: calc(var(--ax-nav) + 24px);
-    padding-bottom: 300px;
+    padding-bottom: 120px;
   }
   .ax-copy { max-width: 100%; }
-  .ax-scene { width: 135vw; right: -34vw; bottom: 0; }
-  .ax-eyebrow { letter-spacing: 0.3em; font-size: 11px; }
+  .ax-scene { width: 128vw; right: -28vw; bottom: 0; }
+  .ax-eyebrow { letter-spacing: 0.26em; font-size: 10px; }
   .ax-eyebrow::before,
-  .ax-eyebrow::after { width: 28px; }
-  .ax-indent { padding-left: 0.5em; }
+  .ax-eyebrow::after { width: 22px; }
+  .ax-indent { padding-left: 0.4em; }
   .ax-fl.hide-sm { display: none; }
-  .ax-strip-in { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 12px; padding: 0 12px; }
-  .ax-trust { padding: 0 8px; }
+  .ax-strip-in { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; padding: 0 8px; }
+  .ax-trust { padding: 0 8px; gap: 10px; }
   .ax-trust + .ax-trust::before { display: none; }
+  .ax-trust b { font-size: 13px; }
+  .ax-trust span { font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .ax-hero .ax-title {
+    font-size: clamp(2.4rem, 13vw, 3.3rem);
+  }
+  .ax-lead {
+    font-size: 0.93rem;
+    line-height: 1.7;
+  }
+  .ax-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .ax-strip-in {
+    grid-template-columns: 1fr;
+  }
+  .ax-trust {
+    padding: 0;
+  }
 }
 
 .ax-main > .container-shell {

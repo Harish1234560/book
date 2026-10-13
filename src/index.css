@@ -39,11 +39,11 @@
   --text-3: 125 118 103;
   --line: 255 255 255;
   --line-alpha: 0.08;
-  --accent: 184 137 59;
-  --accent-soft: 184 137 59;
-  --accent-soft-alpha: 0.14;
+  --accent: 214 166 98;
+  --accent-soft: 214 166 98;
+  --accent-soft-alpha: 0.18;
   --accent-ink: 42 29 6;
-  --accent-hover: 200 155 75;
+  --accent-hover: 228 181 119;
   --success: 94 140 122;
   --error: 210 95 85;
   --warning: 200 155 75;
@@ -133,7 +133,26 @@
   .container-shell {
     max-width: 1320px;
     margin-inline: auto;
-    padding-inline: 24px;
+    padding-inline: clamp(16px, 2.5vw, 24px);
+  }
+
+  @media (max-width: 640px) {
+    .container-shell {
+      padding-inline: 16px;
+    }
+
+    .py-128 {
+      padding-top: 72px !important;
+      padding-bottom: 72px !important;
+    }
+
+    .pt-128 {
+      padding-top: 72px !important;
+    }
+
+    .pb-128 {
+      padding-bottom: 72px !important;
+    }
   }
 
   .category-section {

@@ -39,7 +39,7 @@ export function CategoryTiles() {
           <div className="mb-12 flex items-end justify-between gap-6">
             <div>
               <p className="label-eyebrow mb-4 text-accent">{t.page.whatWeCurate}</p>
-              <h2 className="max-w-xl font-serif text-h2 text-ink">
+              <h2 className="max-w-xl font-serif text-h2 text-bg-0">
                 {t.page.findNextStory}
               </h2>
             </div>
